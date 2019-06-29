@@ -1,0 +1,16 @@
+#!/bin/sh
+#call this script by "bash update_loader"
+#The script 
+# - compiles the flash erase and program routines (loader.asm) using asm8 compiler
+# - creates C source array definition from S19 file  
+# - creates C source defines for start address of routines from LST file
+# - deletes monloader previous instance  
+# - compiles monloader by gcc  
+cd loader
+asm8 loader.asm
+cd ..
+php s19tocarray.php loader/loader
+if test -f "monloader"; then
+  rm monloader
+fi
+gcc monloader.c -o monloader
