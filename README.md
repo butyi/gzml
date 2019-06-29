@@ -86,6 +86,16 @@ Development procedure:
 - Call `bash update_loader`
 - Try it
 
+## Baud rate
+
+Unfortunately I couldn't get work non-standard baud rate (14400) on Linux.
+Therefore I decided to change quarz from 8MHz to 5.33MHz to have standard
+(9600) monitor baudrate. I haven't found 5.33MHz quarz only if I buy 1000 pieces. :)
+I could only buy 5.2MHz from Conrad, which is still inside the tolerance range.
+So, baud rate is fix 9600 and cannot be changed by parameter. 
+But you can change in source code (monloader.c). 
+Do not forget, quarz change need to update PLL setup in system software too.
+
 ## Test
 
 I just tested those features what I used during download bootloader. Not all available
