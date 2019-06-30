@@ -1,5 +1,5 @@
 # monloader
-MC68HC908GZ60 CLI Monitor Loader for Linux
+Linux CLI Monitor Loader for MC68HC908GZ60
 
 ## Why I write a monitor loader for HC908GZ in 2019 while this uC should be already in a museum?
 
@@ -53,7 +53,7 @@ full 0xFF bytes, and Flash 2 will also erased.
 `./monloader hmdl.s19`
 
 Download software into Flash memory. This command does not erase Flash even if it
-would be needed. If you download into not erased memory, you will heve verify errors.
+would be needed. If you download into not erased memory, you will have verify errors.
  
 `./monloader -d 0xFF00`
 
@@ -110,8 +110,8 @@ features were tested. If you find bug, or do not like how it works, feel free to
 - Dump from memory
 - Motherboard mounted ttyS0
 - USB Serial interface ttyUSB0 
-  (both [FT231XS]{https://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_Chipi-X.pdf} and
-  [ATEN UC232A1]{https://www.aten.com/global/en/products/usb-&-thunderbolt/usb-converters/uc232a1/}) 
+  (both [FT231XS](https://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_Chipi-X.pdf) and
+  [ATEN UC232A1](https://www.aten.com/global/en/products/usb-&-thunderbolt/usb-converters/uc232a1/) ) 
 
 ## License
 
