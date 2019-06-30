@@ -620,6 +620,7 @@ void checkJumpBackToMon(){
     comErr("ERROR: waiting for MON, nothing was received\n");
   if(buf != 0)//check if it was break
     comErr("ERROR: unexpected swi answer read %x\n", buf);
+  flushBreak();
 }
 
 void massErase(unsigned int address){
