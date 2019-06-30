@@ -63,11 +63,11 @@ extern int ioctl (int filedes, int command, ...);
 #define RAM_PARAM_ADDRESS 0x0080
 #define ROUTINES_RAM_ADDRESS 0x0100
 
-char* COM = "/dev/ttyS0"; //default is the first built in port
+char* COM = "ttyS0"; //default is the first built in port
 
 #include "loader.c"
 
-char version[] = "V0.00 2019.06.29.";
+char version[] = "V0.01 2019.06.30.";
 
 unsigned char scode[8]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
@@ -110,7 +110,9 @@ void ioctlErrCheck(int e) {
 }
 	
 void initSerialPort() {
-	com =  open(COM, O_RDWR | O_NOCTTY | O_NDELAY);
+  char file[256];
+  sprintf(file,"/dev/%s", COM);
+	com =  open(file, O_RDWR | O_NOCTTY | O_NDELAY);
 	if (com <0) 
 		comErr("Failed to open serial port\n");
 		
@@ -186,6 +188,7 @@ void flushBreak() {
 		
 void sendByte(unsigned char byte) {
 	putByte(byte);
+	usleep(5000);
 	unsigned char buf;
 	if (read(com, &buf, 1)!=1)
 		comErr("Loopback failed, nothing was received\n");
@@ -441,7 +444,7 @@ void printHelp() {
 		flsprintf(stdout,"Usage: \n");
 		flsprintf(stdout," monloader [-p:d:l:ehkv:qs:] [filename.s19]\n");
 		flsprintf(stdout,"  -p port        Set serial com PORT used to communicate with target\n"); 
-		flsprintf(stdout,"                 (default '/dev/ttyS0')\n");
+		flsprintf(stdout,"                 It is in /dev/ folder (default 'ttyS0')\n");
 		flsprintf(stdout,"  -d address     DUMP from memory address\n");
 		flsprintf(stdout,"  -l length      Dump LENGTH, default 0x80\n");
 		flsprintf(stdout,"  -e             ERASE only the target using mass erase, clearing security bytes\n");

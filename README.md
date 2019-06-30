@@ -1,5 +1,5 @@
 # monloader
-MC68HC908GZ60 Monitor Loader
+MC68HC908GZ60 CLI Monitor Loader for Linux
 
 ## Why I write a monitor loader for HC908GZ in 2019 while this uC should be already in a museum?
 
@@ -31,17 +31,18 @@ needed to download my bootloader.
 
 ## How get use monloader?
 
-Keynote is Linux. The software is developed on my Ubuntu Linux 16.04 LTS. 
+The keyword is Linux. The software was developed on my Ubuntu Linux 16.04 LTS. 
+- Open terminal
 - First check out files into a folder.
 - Compile monloader by `gcc monloader.c -o monloader`
 - Enjoy it.
 
 ## How to use monloader?
-### `./monloader`
+`./monloader`
 
 Print out usual help about version, command line options, tipical usage. 
 
-### `./monloader -e`
+`./monloader -e`
 
 Erase the entire Flash memory. If the security failed during connection phrase,
 the command will only mass erase Flash 1 (0x8000-0xFFFF) including security bytes.
@@ -49,12 +50,12 @@ In this case, to erase Flash 2 (0x0462 - 0x7FFF) too, you need to execute the sa
 command again. Since security bytes were erased, security will pass with default
 full 0xFF bytes, and Flash 2 will also erased.
 
-### `./monloader hmdl.s19`
+`./monloader hmdl.s19`
 
 Download software into Flash memory. This command does not erase Flash even if it
 would be needed. If you download into not erased memory, you will heve verify errors.
  
-### `./monloader -d 0xFF00`
+`./monloader -d 0xFF00`
 
 Dump memory content from address 0xFF00 - 0xFFFF. Default length of dump is 256.
 You can increase/decrease it by -l command line parameter. See help for more details.
@@ -101,10 +102,21 @@ Do not forget, quarz change need to update PLL setup in system software too.
 I just tested those features what I used during download bootloader. Not all available
 features were tested. If you find bug, or do not like how it works, feel free to fix or modify.
 
+### Tested functions
+- Mass erase when security passed 
+- Mass erase when security failed
+- Program into area 0x8000 - 0xFFFF
+- Program into area 0x0980 - 0x1000
+- Dump from memory
+- Motherboard mounted ttyS0
+- USB Serial interface ttyUSB0 
+  (both [FT231XS]{https://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_Chipi-X.pdf} and
+  [ATEN UC232A1]{https://www.aten.com/global/en/products/usb-&-thunderbolt/usb-converters/uc232a1/}) 
+
 ## License
 
 This is free. You can do anything you want with it.
-While I am using Linux, I got so many support from free projects, I am happy if I can help for anybody else too.
+While I am using Linux, I got so many support from free projects, I am happy if I can help for the community.
 
 ## Thanks
 
