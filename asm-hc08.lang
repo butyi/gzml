@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language _name="6808 Assembly (CPU08)" version="1.0" _section="Sources" globs="*.asm" mimetypes="text/x-asm;text/x-assembler">
+	
+	<escape-char>\</escape-char>
+
+	<line-comment _name = "Line Comment" style= "Comment">
+		<start-regex>;</start-regex>
+	</line-comment>
+
+	<block-comment _name = "Block Comment" style = "Comment">
+		<start-regex>/\*</start-regex>
+        	<end-regex>\*/</end-regex>
+	</block-comment>
+
+	<string _name = "NASM Identifiers" style = "Keyword" end-at-line-end = "TRUE">
+		<start-regex>\[</start-regex>
+		<end-regex>\]</end-regex>
+	</string>
+
+	<pattern-item _name = "Operators" style = "Operator">
+		<regex>[-.,:\+\*\/\(\)\{\}\[]|]</regex>
+	</pattern-item>
+
+	<pattern-item _name = "Label" style = "Preprocessor">
+		<regex>^[A-Za-z_][A-Za-z_0-9]*</regex>
+	</pattern-item>
+
+	<string _name = "String" style = "String" end-at-line-end = "TRUE">
+		<start-regex>&quot;</start-regex>
+		<end-regex>&quot;</end-regex>
+	</string>
+
+	<pattern-item _name = "Macro call" style = "Preprocessor">
+		<regex>@[A-Za-z_0-9]+</regex>
+	</pattern-item>
+
+    <keyword-list _name = "Assembler Cmds" style = "Preprocessor"
+    	case-sensitive="FALSE"
+    	match-empty-string-at-beginning = "TRUE"
+    	match-empty-string-at-end = "TRUE">
+    	
+    	<keyword>org</keyword>
+    	<keyword>as</keyword>
+    	<keyword>use16</keyword>
+    	<keyword>use32</keyword>
+    	<keyword>use64</keyword>
+    	
+    	<keyword>equ</keyword>
+    	<keyword>times</keyword>
+    	<keyword>if</keyword>
+    	<keyword>repeat</keyword>
+    	<keyword>while</keyword>
+    	<keyword>end</keyword>
+    	<keyword>break</keyword>
+    	
+    	<keyword>display</keyword>
+    	<keyword>err</keyword>
+    	
+    	<keyword>include</keyword>
+    	<keyword>macro</keyword>
+    	<keyword>endm</keyword>
+    	<keyword>align</keyword>
+    	
+    	
+    	<keyword>db</keyword> 
+    	<keyword>du</keyword>
+    	<keyword>dw</keyword>
+    	<keyword>dd</keyword>
+    	<keyword>dq</keyword>
+    	
+    	<keyword>rb</keyword>
+    	<keyword>rw</keyword>
+    	<keyword>rd</keyword>
+    	<keyword>rq</keyword>
+    
+    </keyword-list>
+
+  <keyword-list _name="Instructions" style="Keyword" case-sensitive="FALSE" match-empty-string-at-beginning="TRUE" match-empty-string-at-end="TRUE">
+		<!-- CPU08 -->
+
+		<keyword>adc</keyword>
+		<keyword>add</keyword>
+		<keyword>ais</keyword>
+		<keyword>aix</keyword>
+		<keyword>and</keyword>
+		<keyword>asl</keyword>
+		<keyword>asr</keyword>
+		<keyword>bcc</keyword>
+		<keyword>bclr</keyword>
+		<keyword>bcs</keyword>
+		<keyword>beq</keyword>
+		<keyword>bge</keyword>
+		<keyword>bgt</keyword>
+		<keyword>bhcc</keyword>
+		<keyword>bhcs</keyword>
+		<keyword>bhi</keyword>
+		<keyword>bhs</keyword>
+		<keyword>bih</keyword>
+		<keyword>bil</keyword>		
+		<keyword>bit</keyword>
+		<keyword>ble</keyword>
+		<keyword>blo</keyword>
+		<keyword>bls</keyword>
+		<keyword>blt</keyword>
+		<keyword>bmc</keyword>
+		<keyword>bmi</keyword>
+		<keyword>bms</keyword>
+		<keyword>bne</keyword>
+		<keyword>bpl</keyword>
+		<keyword>bra</keyword>
+		<keyword>brclr</keyword>
+		<keyword>brn</keyword>
+		<keyword>brset</keyword>
+		<keyword>bset</keyword>
+		<keyword>bsr</keyword>
+		<keyword>cbeq</keyword>
+		<keyword>cbeqa</keyword>
+		<keyword>cbeqx</keyword>
+		<keyword>clc</keyword>
+		<keyword>cli</keyword>
+		<keyword>clr</keyword>
+		<keyword>clra</keyword>
+		<keyword>clrx</keyword>
+		<keyword>clrh</keyword>
+		<keyword>cmp</keyword>
+		<keyword>com</keyword>
+		<keyword>coma</keyword>
+		<keyword>comx</keyword>
+		<keyword>cphx</keyword>
+		<keyword>cpx</keyword>
+		<keyword>daa</keyword>
+		<keyword>dbnz</keyword>
+		<keyword>dbnza</keyword>
+		<keyword>dbnzx</keyword>
+		<keyword>dec</keyword>
+		<keyword>deca</keyword>
+		<keyword>decx</keyword>
+		<keyword>div</keyword>
+		<keyword>eor</keyword>
+		<keyword>inc</keyword>
+		<keyword>inca</keyword>
+		<keyword>incx</keyword>
+		<keyword>jmp</keyword>
+		<keyword>jsr</keyword>
+		<keyword>lda</keyword>
+		<keyword>ldhx</keyword>
+		<keyword>ldx</keyword>		
+		<keyword>lsl</keyword>
+		<keyword>lsla</keyword>
+		<keyword>lslx</keyword>
+		<keyword>lsr</keyword>
+		<keyword>lsra</keyword>
+		<keyword>lsrx</keyword>
+		<keyword>mov</keyword>
+		<keyword>mul</keyword>
+		<keyword>neg</keyword>
+		<keyword>nega</keyword>
+		<keyword>negx</keyword>
+		<keyword>nop</keyword>
+		<keyword>nsa</keyword>
+		<keyword>ora</keyword>
+		<keyword>psha</keyword>
+		<keyword>pshh</keyword>
+		<keyword>pshx</keyword>
+		<keyword>pula</keyword>
+		<keyword>pulh</keyword>
+		<keyword>pulx</keyword>
+		<keyword>rol</keyword>
+		<keyword>rola</keyword>
+		<keyword>rolx</keyword>
+		<keyword>ror</keyword>
+		<keyword>rora</keyword>
+		<keyword>rorx</keyword>
+		<keyword>rsp</keyword>
+		<keyword>rti</keyword>
+		<keyword>rts</keyword>
+		<keyword>sbc</keyword>
+		<keyword>sec</keyword>
+		<keyword>sei</keyword>
+		<keyword>sta</keyword>
+		<keyword>sthx</keyword>
+		<keyword>stop</keyword>
+		<keyword>stx</keyword>
+		<keyword>sub</keyword>
+		<keyword>swi</keyword>
+		<keyword>tap</keyword>
+		<keyword>tax</keyword>
+		<keyword>tpa</keyword>
+		<keyword>tst</keyword>
+		<keyword>tsta</keyword>
+		<keyword>tstx</keyword>
+		<keyword>tsx</keyword>
+		<keyword>txa</keyword>
+		<keyword>txs</keyword>
+		<keyword>wait</keyword>
+		
+
+	</keyword-list>
+
+	<string _name = "Character Constant" style = "Character">
+	    <start-regex>\'</start-regex>
+	    <end-regex>\'</end-regex>
+	</string>
+
+	<pattern-item _name = "Decimal" style = "Decimal">
+		<regex>\b([1-9][0-9]*|0)\b</regex>
+	</pattern-item>
+
+	<pattern-item _name = "Hex Number" style = "Base-N Integer">
+		<regex>\b$[0-9a-fA-F]+\b</regex>
+	</pattern-item>
+
+</language>
+
