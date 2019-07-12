@@ -4,13 +4,13 @@
 # - compiles the flash erase and program routines (loader.asm) using asm8 compiler
 # - creates C source array definition from S19 file  
 # - creates C source defines for start address of routines from LST file
-# - deletes monloader previous instance  
-# - compiles monloader by gcc  
+# - deletes gzml previous instance  
+# - compiles gzml by gcc  
 cd loader
 asm8 loader.asm
 cd ..
 php s19tocarray.php loader/loader
-if test -f "monloader"; then
-  rm monloader
+if test -f "gzml"; then
+  rm gzml
 fi
-gcc monloader.c -o monloader
+gcc gzml.c -o gzml

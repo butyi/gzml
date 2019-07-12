@@ -16,7 +16,7 @@
 ;
 ; Parameters: see below
 ; Designed for: 
-; - Linux side host software (monloader.c)
+; - Linux side host software (gzml.c)
 ; - 5.2Mhz quarz => 2.6Mhz fbus (ideal would be 5.333Mhz for 
 ;   monitor baud rate 9600, but 5.2 is still acceptable).
 ; - HC908GZ60, but easy to modify to be sufficient also for

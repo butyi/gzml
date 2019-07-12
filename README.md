@@ -1,5 +1,5 @@
-# monloader
-Linux CLI Monitor Loader for MC68HC908GZ60
+# gzml
+Linux CLI Monitor Loader for Motorola/Freescale/NXP MC68HC908GZ60
 
 ## Why I write a monitor loader for HC908GZ in 2019 while this uC should be already in a museum?
 
@@ -8,7 +8,7 @@ for WinXP and built in COM port do not work on Win7, Win10 and USB-RS232 devices
 Moreover, I switched from Windows to Linux several years ago.
 Therefore I could not use prog08sz any longer, as I used 10 years before.
 
-## What are supported by monloader?
+## What are supported by gzml?
 
 It supports only basic monitor features what are needed to erase flash and download
 software into flash. Usually I just use monitor loader to download the bootloader into
@@ -29,20 +29,20 @@ needed to download my bootloader.
 - Write bytes or ranges
 - ... (many other features prog08sz supported) 
 
-## How get use monloader?
+## How get use gzml?
 
 The keyword is Linux. The software was developed on my Ubuntu Linux 16.04 LTS. 
 - Open terminal
 - First check out files into a folder.
-- Compile monloader by `gcc monloader.c -o monloader`
+- Compile gzml by `gcc gzml.c -o gzml`
 - Enjoy it.
 
-## How to use monloader?
-`./monloader`
+## How to use gzml?
+`./gzml`
 
 Print out usual help about version, command line options, tipical usage. 
 
-`./monloader -e`
+`./gzml -e`
 
 Erase the entire Flash memory. If the security failed during connection phrase,
 the command will only mass erase Flash 1 (0x8000-0xFFFF) including security bytes.
@@ -50,12 +50,12 @@ In this case, to erase Flash 2 (0x0462 - 0x7FFF) too, you need to execute the sa
 command again. Since security bytes were erased, security will pass with default
 full 0xFF bytes, and Flash 2 will also erased.
 
-`./monloader hmdl.s19`
+`./gzml hmdl.s19`
 
 Download software into Flash memory. This command does not erase Flash even if it
 would be needed. If you download into not erased memory, you will have verify errors.
  
-`./monloader -d 0xFF00`
+`./gzml -d 0xFF00`
 
 Dump memory content from address 0xFF00 - 0xFFFF. Default length of dump is 256.
 You can increase/decrease it by -l command line parameter. See help for more details.
@@ -63,8 +63,8 @@ You can increase/decrease it by -l command line parameter. See help for more det
 ## Further Development
 
 If you only improve PC side features, just 
-- Edit monloader.c 
-- Compile monloader by `gcc monloader.c -o monloader`
+- Edit gzml.c 
+- Compile gzml by `gcc gzml.c -o gzml`
 - Enjoy it.
 
 If you want to improve uC side code too (as I did), use `bash update_loader`.
@@ -79,11 +79,11 @@ Let see `update_loader` bash script. It:
 - compiles the flash erase and program routines (loader.asm) using asm8 compiler
 - php script creates C source defines for start address of routines from LST file
 - php script creates C source array definition from S19 file
-- deletes monloader previous instance if there is
-- compiles monloader by gcc 
+- deletes gzml previous instance if there is
+- compiles gzml by gcc 
 
 Development procedure:
-- Modify any source (monloader.c , loader.asm)
+- Modify any source (gzml.c , loader.asm)
 - Call `bash update_loader`
 - Try it
 
@@ -94,7 +94,7 @@ Therefore I decided to change quarz from 8MHz to 5.33MHz to have standard
 (9600) monitor baudrate. I haven't found 5.33MHz quarz only if I buy 1000 pieces. :)
 I could only buy 5.2MHz from Conrad, which is still inside the tolerance range.
 So, baud rate is fix 9600 and cannot be changed by parameter. 
-But you can change in source code (monloader.c). 
+But you can change in source code (gzml.c). 
 Do not forget, quarz change need to update PLL setup in system software too.
 
 ## Test
@@ -131,6 +131,10 @@ and by this way helped to save green environment. I mean I do not need to produc
 - Copyright (c) 2013 	Jaromir Sukuba (added A and B ROM routines entry instances, 
 
 
+###Keywords:
+Motorola, Freescale, NXP, MC68HC908GZ60, 68HC908GZ60, HC908GZ60, MC908GZ60, 908GZ60, HC908GZ48, HC908GZ32, HC908GZ16, HC908GZ, 908GZ
+
 ###### 2019 Janos Bencsik
+
 
 

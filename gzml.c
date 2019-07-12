@@ -1,5 +1,5 @@
 /*
-File: monloader.c (compile: gcc monloader.c -o monloader)
+File: gzml.c (compile: gcc gzml.c -o gzml)
 
 Based on bl08.c (https://github.com/jaromir-sukuba/bl08):
 Copyright (c) 2004,2008	Kustaa Nyholm
@@ -439,27 +439,27 @@ int readSrec(int verbose,FILE* sf,unsigned char* p, unsigned int size, unsigned 
 }
 
 void printHelp() {
-		flsprintf(stdout,"monloader - MC68HC908GZ60 Monitor Loader - version %s\n",version);
+		flsprintf(stdout,"gzml - MC68HC908GZ60 Monitor Loader - version %s\n",version);
 		flsprintf(stdout,"Download software into flash memory from an S19 file using monitor mode\n");
 		flsprintf(stdout,"Usage: \n");
-		flsprintf(stdout," monloader [-p:d:l:ehkv:qs:] [filename.s19]\n");
+		flsprintf(stdout," gzml [-p:d:l:ehkv:qs:] [filename.s19]\n");
 		flsprintf(stdout,"  -p port        Set serial com PORT used to communicate with target\n"); 
 		flsprintf(stdout,"                 It is in /dev/ folder (default 'ttyS0')\n");
 		flsprintf(stdout,"  -d address     DUMP from memory address\n");
 		flsprintf(stdout,"  -l length      Dump LENGTH, default 0x80\n");
 		flsprintf(stdout,"  -e             ERASE only the target using mass erase, clearing security bytes\n");
 		flsprintf(stdout,"  -h             Print out this HELP text\n");
-		flsprintf(stdout,"  -k             KILL previous instance of monloader\n");
+		flsprintf(stdout,"  -k             KILL previous instance of gzml\n");
 		flsprintf(stdout,"  -v verbosity   Set VERBOSITY level, valid values are 0-4, default 1\n");
 		flsprintf(stdout,"  -q             Run QUIETly, same as -l 0\n");		
 		flsprintf(stdout,"  -s string      Security code, as a string of hex bytes separated by space or colon\n");
 		flsprintf(stdout,"                 (default 'FF FF FF FF FF FF FF FF')\n");
 		flsprintf(stdout,"\n");
 		flsprintf(stdout,"Examples, prefered using procedure:\n");
-		flsprintf(stdout,"  ./monloader -e -> Erase the whole flash memory to have empty uC.\n");
-		flsprintf(stdout,"  ./monloader hmbl.s19 -> Download hmbl.s19 software into empty uC with verify.\n");
+		flsprintf(stdout,"  ./gzml -e -> Erase the whole flash memory to have empty uC.\n");
+		flsprintf(stdout,"  ./gzml hmbl.s19 -> Download hmbl.s19 software into empty uC with verify.\n");
 		flsprintf(stdout,"\n");
-		flsprintf(stdout,"  ./monloader -d 0xFF00 -> Check if vectors were written properly.\n");
+		flsprintf(stdout,"  ./gzml -d 0xFF00 -> Check if vectors were written properly.\n");
 		flsprintf(stdout,"Baud rate is fixed 9600. This needs 5.333Mhz quarz, but 5.2MHz is still sufficient.\n");
 		flsprintf(stdout,"\n");
 	exit(0);
@@ -694,7 +694,7 @@ int main(int argc, char *argv[]) {
 		killPreviousInstance();
 	
 	if (verbose)
-		flsprintf(stdout,"monloader - MC68HC908GZ60 Monitor Loader - version %s\n",version);
+		flsprintf(stdout,"gzml - MC68HC908GZ60 Monitor Loader - version %s\n",version);
 	
 	initSerialPort();
 	requestReset();
