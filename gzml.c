@@ -67,7 +67,7 @@ char* COM = "ttyS0"; //default is the first built in port
 
 #include "loader.c"
 
-char version[] = "V0.01 2019.06.30.";
+char version[] = "V0.02 2019.08.25.";
 
 unsigned char scode[8]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
@@ -80,6 +80,7 @@ int eraseFlash=0;
 int killPrevious=0;
 int dumpStart=-1;
 int dumpSize=256;
+int baud=9600; //Holding the PTB4 pin low when entering monitor mode causes a bypass of a divide-by-two stage at the oscillator (fast speed 9600 with 5.33MHz quarz)
 
 void comErr(char *fmt, ...) {
 	char buf[ 500 ];
@@ -137,18 +138,23 @@ void initSerialPort() {
 	opts.c_cc[ VMIN ] = 0;
 	opts.c_cc[ VTIME ] = 10;//0.1 sec
 	
-	//Unfortunately I couldn't get work non-standard baud rate (14400) on Linux.
+	//Unfortunately I couldn't get work non-standard baud rate (14400, 7200) on Linux.
 	//Therefore I decided to change quarz from 8MHz to 5.33MHz to have standard
 	//monitor baudrate. I haven't found 5.33MHz quarz only if I buy 1000 pieces.
-	//I could only buy 5.2MHz, which is still inside the tolerance range.
+	//I could only buy 5.2MHz, which is still inside the tolerance range if you lucky.
 	//This quarz change need to update PLL setup in embedded softwares.
-	cfsetispeed(&opts, B9600);   
-	cfsetospeed(&opts, B9600);   
+	if(baud==4800){
+    cfsetispeed(&opts, B4800);   
+    cfsetospeed(&opts, B4800);
+	} else {
+    cfsetispeed(&opts, B9600);   
+    cfsetospeed(&opts, B9600);
+	}
 	
 	if (tcsetattr(com, TCSANOW, &opts) != 0) {
 		perror(COM); 
 		exit(-1); 
-		}
+  }
 		
 	tcflush(com,TCIOFLUSH); // just in case some crap is the buffers
 }
@@ -188,7 +194,7 @@ void flushBreak() {
 		
 void sendByte(unsigned char byte) {
 	putByte(byte);
-	usleep(5000);
+	usleep(500);
 	unsigned char buf;
 	if (read(com, &buf, 1)!=1)
 		comErr("Loopback failed, nothing was received\n");
@@ -442,9 +448,10 @@ void printHelp() {
 		flsprintf(stdout,"gzml - MC68HC908GZ60 Monitor Loader - version %s\n",version);
 		flsprintf(stdout,"Download software into flash memory from an S19 file using monitor mode\n");
 		flsprintf(stdout,"Usage: \n");
-		flsprintf(stdout," gzml [-p:d:l:ehkv:qs:] [filename.s19]\n");
+		flsprintf(stdout," gzml [-p:b:d:l:ehkv:qs:] [filename.s19]\n");
 		flsprintf(stdout,"  -p port        Set serial com PORT used to communicate with target\n"); 
 		flsprintf(stdout,"                 It is in /dev/ folder (default 'ttyS0')\n");
+		flsprintf(stdout,"  -b baudrate    baud rate (4800 or default 9600)\n");
 		flsprintf(stdout,"  -d address     DUMP from memory address\n");
 		flsprintf(stdout,"  -l length      Dump LENGTH, default 0x80\n");
 		flsprintf(stdout,"  -e             ERASE only the target using mass erase, clearing security bytes\n");
@@ -460,7 +467,7 @@ void printHelp() {
 		flsprintf(stdout,"  ./gzml hmbl.s19 -> Download hmbl.s19 software into empty uC with verify.\n");
 		flsprintf(stdout,"\n");
 		flsprintf(stdout,"  ./gzml -d 0xFF00 -> Check if vectors were written properly.\n");
-		flsprintf(stdout,"Baud rate is fixed 9600. This needs 5.333Mhz quarz, but 5.2MHz is still sufficient.\n");
+		flsprintf(stdout,"Baud rate is 9600 when PTB4=0, 4800 when PTB4=1. This needs 5.333Mhz quarz or around.\n");
 		flsprintf(stdout,"\n");
 	exit(0);
 }
@@ -500,10 +507,13 @@ void setSecurityCode(char* str) {
 
 void parseArgs(int argc, char *argv[]) {	
 	int c;
-	while ((c = getopt (argc, argv, "p:d:l:ehkv:qs:")) != -1) {
+	while ((c = getopt (argc, argv, "p:b:d:l:ehkv:qs:")) != -1) {
 		switch (c) {
 			case 'p' ://port 
 				COM=optarg;
+				break;
+			case 'b' ://baud
+				baud=getIntArg(optarg);
 				break;
 			case 'd' ://dump
 				dumpStart=getIntArg(optarg);
