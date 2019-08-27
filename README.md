@@ -29,6 +29,21 @@ needed to download my bootloader.
 - Write bytes or ranges
 - ... (many other features prog08sz supported) 
 
+## Hardware
+
+To be HW interface easy and cheap, buy TTL USB-Serial interface from China.
+I use FT232RL FTDI USB to TTL Serial Adapter Module for communication. This is supported by both Linux and Windows 10.
+The mini step up power supply board is used to generate Vtst for IRQ pin.
+With this, you just need some cable and that's it.
+
+![GZ monitor interface circuit](https://github.com/butyi/gzml/raw/master/FT232RL_FTDI_USB_to_TTL_Serial_Adapter_Module_for_monitor_download_into_CEM35_CPU_with_MC68HC908GZ60.jpg)
+
+My first CPU card circuit diagram (schematic) is visible here. 
+
+![GZ monitor interface circuit](https://github.com/butyi/gzml/raw/master/homemat_cem35_cpu_0_sch.jpg)
+
+More info is [here](http://butyi.hu/cem35).
+
 ## How get use gzml?
 
 The keyword is Linux. The software was developed on my Ubuntu Linux 16.04 LTS. 
